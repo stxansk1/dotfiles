@@ -1,0 +1,117 @@
+configuration {
+    modi: "drun,window";
+    font: "JetBrainsMono Nerd Font 11";
+    icon-theme: "Papirus-Dark";
+    show-icons: true;
+    terminal: "kitty";
+    drun-display-format: "{icon} {name}";
+    matching: "fuzzy";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    sidebar-mode: true;
+    sort: true;
+    sorting-method: "fzf";
+    case-sensitive: false;
+    drun-match-fields: "name,generic,exec,categories,keywords";
+
+    /* ВАЖНО: две строки ниже замени на свои старые с иконками */
+    display-drun: "";
+    display-window: "";
+}
+
+@theme "/dev/null"
+
+* {
+    bg:        #1e222a;
+    bg-dark:   #1a1c23;
+    bg-button: #282c34;
+    fg:        #dfdfe0;
+    fg-dim:    #565f89;
+    accent:    #b8bb26;
+    clear:     #00000000;
+}
+
+window {
+    width: 45%;
+    border-radius: 8px;
+    border: 2px;
+    border-color: @accent;
+    background-color: @bg;
+    padding: 0px;
+}
+
+mainbox {
+    background-color: @bg;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @bg;
+    children: [ entry, mode-switcher ];
+    spacing: 8px;
+    padding: 16px 20px 8px 20px;
+}
+
+entry {
+    background-color: @bg-dark;
+    padding: 10px 14px;
+    text-color: @fg;
+    border-radius: 6px;
+    placeholder: "Search...";
+    placeholder-color: @fg-dim;
+}
+
+mode-switcher {
+    background-color: @clear;
+    spacing: 8px;
+}
+
+button {
+    font: "JetBrainsMono Nerd Font 12";
+    background-color: @bg-button;
+    text-color: @fg;
+    padding: 10px;
+    border-radius: 6px;
+    width: 42px;
+}
+
+button selected {
+    background-color: @accent;
+    text-color: @bg;
+}
+
+listview {
+    background-color: @bg;
+    columns: 1;
+    lines: 7;
+    padding: 8px 20px 20px 20px;
+    spacing: 6px;
+    cycle: false;
+    dynamic: true;
+}
+
+element {
+    padding: 8px 12px;
+    spacing: 12px;
+    border-radius: 6px;
+    background-color: @bg;
+    text-color: @fg;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @bg;
+}
+
+element-icon {
+    size: 22px;
+    background-color: @clear;
+    text-color: inherit;
+}
+
+element-text {
+    background-color: @clear;
+    text-color: inherit;
+    vertical-align: 0.5;
+}

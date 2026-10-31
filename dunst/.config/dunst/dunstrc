@@ -1,0 +1,96 @@
+# ~/.config/dunst/dunstrc
+# Палитра: акцент #8fb339, фон #151711, текст #e2e4d8
+# Строки с # в начале (в других файлах) это отключённые примеры, в этом файле оставлено только нужное.
+
+[global]
+    ### Экран ###
+    monitor = 0
+    follow = none
+
+    ### Геометрия ###
+    width = 320
+    height = 300
+    origin = top-right
+    offset = 10x50
+    scale = 0
+    notification_limit = 5
+    gap_size = 8
+    padding = 10
+    horizontal_padding = 12
+    text_icon_padding = 10
+    corner_radius = 0
+
+    ### Рамка ###
+    frame_width = 2
+    frame_color = "#8fb339"
+    separator_height = 2
+    separator_color = frame
+
+    ### Прогресс-бар (громкость и т.п.) ###
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 0
+
+    ### Прозрачность (0 = непрозрачное; нужен picom) ###
+    transparency = 0
+
+    ### Текст ###
+    font = JetBrainsMono Nerd Font 10
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    indicate_hidden = yes
+    sort = yes
+
+    ### Иконки ###
+    enable_recursive_icon_lookup = true
+    icon_theme = "Mint-Y, Adwaita"
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 64
+
+    ### История ###
+    sticky_history = yes
+    history_length = 20
+
+    ### Прочее ###
+    dmenu = rofi -dmenu -p dunst
+    browser = /usr/bin/xdg-open
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    ignore_dbusclose = false
+
+    ### Мышь ###
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "#151711"
+    foreground = "#6b705f"
+    frame_color = "#2a2d22"
+    timeout = 5
+
+[urgency_normal]
+    background = "#151711"
+    foreground = "#e2e4d8"
+    frame_color = "#8fb339"
+    timeout = 6
+
+[urgency_critical]
+    background = "#151711"
+    foreground = "#e2e4d8"
+    frame_color = "#e0654f"
+    timeout = 0

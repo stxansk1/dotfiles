@@ -1,0 +1,74 @@
+#!/bin/sh
+
+export SXHKD_SHELL=sh
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config border_width         2
+bspc config window_gap          10
+bspc config top_padding         35
+bspc config normal_border_color   "#2a2d3a"
+bspc config active_border_color   "#2a2d3a"
+bspc config focused_border_color  "#8fb339"
+bspc config presel_feedback_color "#00ff9f"
+
+# Диалоги и утилиты: плавающие
+bspc rule -a Pavucontrol state=floating
+bspc rule -a Nm-connection-editor state=floating
+bspc rule -a Blueman-manager state=floating
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+
+# Firefox: картинка-в-картинке всегда поверх и на всех столах
+bspc rule -a firefox:*:'Picture-in-Picture' state=floating sticky=on
+
+# Закрепление программ за столами (по желанию)
+# bspc rule -a firefox desktop='^2'
+# bspc rule -a TelegramDesktop desktop='^9'
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# Правила для окон (оставь только нужные)
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Screenkey manage=off
+
+# Курсор, обои, раскладка
+xsetroot -cursor_name left_ptr
+nitrogen --restore &
+(sleep 3 && setxkbmap -layout us,ru -option "" -option grp:win_space_toggle; sleep 5 && setxkbmap -layout us,ru -option "" -option grp:win_space_toggle) &
+
+pgrep -x dunst > /dev/null || dunst &
+pgrep -x clipmenud > /dev/null || clipmenud &
+
+# Compositor (бэкенд и прочее берётся из picom.conf)
+pkill -x picom
+while pgrep -x picom > /dev/null; do sleep 0.1; done
+picom --daemon
+
+# Панель
+"$HOME/.config/polybar/launch.sh" &
+
+# --- Мелочи ---
+
+# Скорость повтора клавиш: задержка 300 мс, 50 повторов в секунду
+xset r rate 300 50
+
+# Фокус следует за курсором мыши
+bspc config focus_follows_pointer true
+
+# Super + мышь: перетаскивание и изменение размера окон
+bspc config pointer_modifier mod4
+bspc config pointer_action1 move           # Super + ЛКМ: переместить
+bspc config pointer_action2 resize_side    # Super + СКМ: размер по стороне
+bspc config pointer_action3 resize_corner  # Super + ПКМ: размер за угол
+
+# Апплеты в трее (запускаются, только если ещё не работают)
+pgrep -x nm-applet > /dev/null || nm-applet &
+pgrep -x blueman-applet > /dev/null || blueman-applet &
+
+# Через 10 минут блокировка, через 15 экран выключается
+xset s 600 5
+xset dpms 0 0 900
+pgrep -x xss-lock > /dev/null || xss-lock --transfer-sleep-lock -- "$HOME/.config/bspwm/lock.sh" &
